@@ -1,4 +1,4 @@
-asyncMap = (array, callback, handler) => {
+const asyncMap = (array, callback, handler) => {
     const resultArray = [];
 
     for (const index in array) {
