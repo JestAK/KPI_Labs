@@ -1,20 +1,34 @@
-asyncMap = (array, callback) => {
-    const result = [];
+asyncMap = (array, callback, handler) => {
+    const resultArray = [];
 
     for (const index in array) {
-        setTimeout(() => {
-            result[index] = callback(array[index])
-
-            if (result.length === array.length){
-                console.log(result)
+        const item = array[index]
+        callback(item, (err, result) => {
+            if (err){
+                handler (err, null)
+                return 0;
+            } else {
+                resultArray[index] = result
             }
-        }, 0)
+
+            if (resultArray.length === array.length){
+                handler(null, resultArray)
+            }
+        });
     }
 };
 
-const array = ["John", "Bob", "Duke", "Frank"];
+const array = [1, 2, 3];
 
-asyncMap(array, (name) => {
-    return `Hello ${name}`
-});
+asyncMap(
+    array,
+    (data, cb) => {
+        setTimeout(() => {
+            cb(null, data * 2);
+        }, 1000);
+    },
+    (err, result) => {
+        console.log(err, result);
+    },
+);
 
