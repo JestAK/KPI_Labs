@@ -3,7 +3,6 @@ asyncMap = (array, callback) => {
 
     for (const index in array) {
         setTimeout(() => {
-            console.log(index)
             result[index] = callback(array[index])
 
             if (result.length === array.length){
