@@ -1,3 +1,5 @@
+'use strict'
+
 const asyncMap = (array, callback, handler) => {
     const resultArray = [];
 

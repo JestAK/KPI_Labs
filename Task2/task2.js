@@ -1,3 +1,5 @@
+'use strict'
+
 const asyncMap = (array, callback) => {
     return new Promise((res, rej) => {
         const resultArray = [];
