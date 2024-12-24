@@ -6,13 +6,15 @@ const signal = controller.signal;
 const asyncMap = (array, callback, signal) => {
     return new Promise((res, rej) => {
         const resultArray = [];
+        let stopped = false;
 
         for (const index in array) {
             const item = array[index]
             callback(item, (err, result) => {
                 if (err){
+                    if (stopped) return 1;
+                    stopped = true;
                     rej(err)
-                    return 0;
                 } else {
                     resultArray[index] = result
                 }
