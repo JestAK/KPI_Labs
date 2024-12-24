@@ -2,13 +2,16 @@
 
 const asyncMap = (array, callback, handler) => {
     const resultArray = [];
+    let stopped = false;
 
     for (const index in array) {
         const item = array[index]
         callback(item, (err, result) => {
             if (err){
-                handler (err, null)
-                return 0;
+                if (stopped) return 1;
+                stopped = true;
+                handler (err, null);
+                return 1;
             } else {
                 resultArray[index] = result
             }
